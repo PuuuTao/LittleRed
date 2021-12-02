@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+var statusBarHeight: CGFloat = 0
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -16,7 +16,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
+        
+        //配置深浅色模式
+        let userInterfaceStyleInt = UserDefaults.standard.integer(forKey: kUserInterfaceStyle)
+        if userInterfaceStyleInt == 1{
+            window?.overrideUserInterfaceStyle = .light
+        }else if userInterfaceStyleInt == 2{
+            window?.overrideUserInterfaceStyle = .dark
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -49,6 +59,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
+    
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else { return }
+        if url.host == "safepay"{
+            AlipaySDK.defaultService().processAuth_V2Result(url){ res in
+                
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
 
 
 }

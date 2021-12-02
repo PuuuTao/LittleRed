@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  LittleRedBook
+
+  Created by Kevin Wang on 2021/10/3.
+  
+*/
+"Discovery" = "发现";
+"Follow" = "关注";
+"NearBy" = "附近";
+
+"Recommend" = "推荐";
+"Travel" = "旅行";
+"Entertainment" = "娱乐";
+"Talent" = "才艺";
+"Makeup" = "美妆";
+"Wear" = "穿搭";
+"Food" = "美食";
+"Pets" = "萌宠";
